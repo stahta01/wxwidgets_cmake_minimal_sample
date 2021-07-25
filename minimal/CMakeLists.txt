@@ -41,8 +41,9 @@ set(SRC_FILES
     )
 
 if(WIN32)
-    # Include a RC file for windows
-    list(APPEND SRC_FILES ../sample.rc)
+    set(ResOutput ${CMAKE_SOURCE_DIR}/sample.rc.obj)
+    set(ResInput ../sample.rc)
+    add_library(ResOutputFile OBJECT ${ResInput})
 elseif(APPLE)
     # Add an icon for the apple .app file
     list(APPEND SRC_FILES ../../src/osx/carbon/wxmac.icns)
@@ -52,6 +53,10 @@ endif()
 add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${SRC_FILES})
 # Link required libraries to the executable
 target_link_libraries(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
+
+if(WIN32)
+    add_dependencies(${PROJECT_NAME} ResOutputFile)
+endif()
 
 if(APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES
