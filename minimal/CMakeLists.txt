@@ -30,7 +30,7 @@ endif()
 project(minimal)
 
 # Request the required wxWidgets libs
-find_package(wxWidgets 3.1 COMPONENTS core base REQUIRED)
+find_package(wxWidgets 3.0 COMPONENTS core base REQUIRED)
 
 # Include the wxWidgets use file to initialize various settings
 include(${wxWidgets_USE_FILE})
